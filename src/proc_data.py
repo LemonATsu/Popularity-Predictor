@@ -24,7 +24,7 @@ def parse_html(text):
     content = re.sub(r, '', content)
     
     content = re.sub('[\W]+', ' ', content.lower()) + ' ' + ' '.join(emoticons).replace('-','')
-    return title, content
+    return title + " " + content
 
 def parse_raw(raw_data):
     parsed = np.empty((raw_data.shape[0], 2), dtype=object)
