@@ -5,7 +5,14 @@ from bs4 import BeautifulSoup
 
 def parse_html(text):
     text = BeautifulSoup(text, 'html.parser')
-    
+
+    if text.find('div', attrs={'class' : 'see-also'}):    
+        text.find('div', attrs={'class' : 'see-also'}).decompose()  
+    if text.find('div', attrs={'class' : 'bonus-content'}):
+        text.find('div', attrs={'class' : 'bonus-content'}).decompose()
+    if text.findAll('div', attrs={'class' : 'meta'}):
+        [meta.decompose() for meta in text.findAll('div', attrs={'class' : 'meta'})]
+
     author = text.find('span', attrs={'class': 'author_name'})
     title = text.find('h1', attrs={'class': 'title'}).get_text()
     content = []
