@@ -20,10 +20,12 @@ def parse_html(text):
     n_fig = 0
     if text.find('div', attrs={'class' : 'see-also'}):    
         text.find('div', attrs={'class' : 'see-also'}).decompose()  
+    """
     if text.find('div', attrs={'class' : 'bonus-content'}):
         text.find('div', attrs={'class' : 'bonus-content'}).decompose()
     if text.findAll('div', attrs={'class' : 'meta'}):
         [meta.decompose() for meta in text.findAll('div', attrs={'class' : 'meta'})]
+    """
     if text.findAll('figure'):
         n_fig = len(text.findAll('figure'))
 
