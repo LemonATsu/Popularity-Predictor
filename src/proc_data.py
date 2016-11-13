@@ -15,7 +15,7 @@ def parse_date(date):
     times = (d.second + d.minute*60 + d.hour*3600) / 86400.0
     return weekday, times
 
-def parse_html(text):
+def parse_html(text, tolower=True):
     text = BeautifulSoup(text, 'html.parser')
     n_fig = 0
     if text.find('div', attrs={'class' : 'see-also'}):    
@@ -50,8 +50,12 @@ def parse_html(text):
     emoticons = re.findall(r, content)
     content = re.sub(r, '', content)
     
-    content = re.sub('[\W]+', ' ', content.lower()) + ' ' + ' '.join(emoticons).replace('-','')
-    title = re.sub('[\W]+', ' ', title.lower()) + ' ' + ' '.join(emoticons).replace('-','')
+    if tolower:
+        content = content.lower()
+        title = title.lower()
+
+    content = re.sub('[\W]+', ' ', content) + ' ' + ' '.join(emoticons).replace('-','')
+    title = re.sub('[\W]+', ' ', title) + ' ' + ' '.join(emoticons).replace('-','')
 
     return title, content, author, n_fig
 
